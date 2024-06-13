@@ -1,0 +1,76 @@
+1、D
+2、19.5
+3、
+public class demo {
+	public static void main(String[] args) {
+		double bankBalance = 500;
+		bankBalance += 250;
+		bankBalance -= 100;
+		System.out.println(bankBalance);
+	}
+}
+4、AB
+5、BCD——不应该选 C ，因为数据类型一旦确定便无法修改「我一开始想的是通过强制类型转换实现」
+6、AD——D不对，在创建变量的时候，一定要进行初始化
+
+7、C
+
+8、
+public class demo2 {
+	public static void main(String[] args) {
+		String name = "墨白";
+		String birthday = "6月6日";
+		int age = 18;
+		float money 9999999.99F;
+	}
+}
+
+9、
+public class demo3 {
+	public static void main(String[] args) {
+		byte a = 10;
+		int b = 20;
+		float c = 30.3F;
+		double d = 40.4;
+		long e = 50L;
+		char f = 'f';
+		String g = "ggggg";
+		short h = 60;
+		System.out.println(a + b + c + d + e + f + g + h);
+	}
+}
+
+10、
+public class demo4 {
+    public static void main(String[] args) {
+        int student = 100;
+        double shop = 55.55;
+        long birth = 460000000;
+        boolean isTrue = false;
+        System.out.println(student);
+        System.out.println(shop);
+        System.out.println(birth);
+        System.out.println(isTrue);
+    }
+}
+
+11、
+public class demo5 {
+    public static void main(String[] args) {
+//        我的姓名是：张三
+//        我的性别是：男
+//        我的年龄是：18
+//        我的地址是：xx省xx市
+//        我的饭卡余额是：55.55元
+        String name = "张三";
+        char gender = '男';
+        int age = 18;
+        String address = "xx省xx市";
+        double balance = 55.55;
+        System.out.println("我的姓名是: " + name);
+        System.out.println("我的性别是: " + gender);
+        System.out.println("我的年龄是: " + age);
+        System.out.println("我的地址是: " + address);
+        System.out.println("我的饭卡余额是: " + balance);
+    }
+}
