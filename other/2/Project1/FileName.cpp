@@ -2,6 +2,24 @@
 #include <array>
 using namespace std;
 
+class GFriend {
+public:
+	GFriend(int age, string name)
+	{
+		this->age = age;		// 类内可以访问到的成员变量
+		this->name = name;		// 类内可以访问到的成员变量
+		cout << "age = " << this->age << " name = " << this->name << endl;
+	}
+	~GFriend() {}
+	void call()
+	{
+		cout << "会做饭 " << endl;
+	}
+private:
+	int age;
+	string name;
+};
+
 void func1()
 {
 	bool m = true;
@@ -62,7 +80,8 @@ void func5()
 
 int main()
 {
-	func5();
+	GFriend* gf = new GFriend(18, "仓");
+	// gf->age;		// 类外不可以进行访问
 
 	return 0;
 }
