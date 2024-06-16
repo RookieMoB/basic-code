@@ -40,9 +40,29 @@ void func4()
 	}
 }
 
+// ถþฮฌสýื้
+void func5()
+{
+	int arr[][4] = {
+		{1,2,3,4},
+		{5,6,7,8}
+	};
+	int len_out = sizeof(arr) / sizeof(arr[0]);
+	int len_in = sizeof(arr[0]) / sizeof(int);
+
+	for (int i = 0; i < len_out; i++)
+	{
+		for (int j = 0; j < len_in; j++)
+		{
+			cout << arr[i][j] << "  ";
+		}
+		cout << endl;
+	}
+}
+
 int main()
 {
-	func4();
+	func5();
 
 	return 0;
 }

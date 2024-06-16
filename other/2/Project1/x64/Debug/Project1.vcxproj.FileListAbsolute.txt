@@ -1,2 +1,3 @@
 C:\Users\12526\Desktop\2\Project1\x64\Debug\Project1.exe
 C:\Users\12526\Desktop\Java学习进度\2\Project1\x64\Debug\Project1.exe
+E:\Vue\Java\SavaCodeData\basic-code\other\2\Project1\x64\Debug\Project1.exe
