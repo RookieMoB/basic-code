@@ -20,9 +20,39 @@
 
 6、`alt + insert` 快速生成构造函数和getxxx(()、setxxx()方法，可以指定参数，也可以`ctrl + a`全选
 
-![image-20240616164559018](./assets/image-20240616164559018.png)**构造函数**![image-20240616164641671](./assets/image-20240616164641671.png)
+<img src="./assets/image-20240616164559018.png" alt="image-20240616164559018" style="zoom:67%;" />**构造函数**<img src="./assets/image-20240616164641671.png" alt="image-20240616164641671" style="zoom:67%;" />
 
-**Getter and Setter**![image-20240616164716870](./assets/image-20240616164716870.png)
+**Getter and Setter**<img src="./assets/image-20240616164716870.png" alt="image-20240616164716870" style="zoom:67%;" />
+
+7、`ctrl + b`选中某一个函数，按此快捷键可以跳转到定义
+
+8、`ctrl + alt + t`为选中的代码块进行语句选择
+
+<img src="./assets/image-20240624151145769.png" alt="image-20240624151145769" style="zoom:67%;" />
+
+9、`ctrl + n`可以在查看源码的时候使用
+
+<img src="./assets/image-20240625080434160.png" alt="image-20240625080434160" style="zoom:67%;" /><img src="./assets/image-20240625080508824.png" alt="image-20240625080508824" style="zoom:67%;" />使用`All Places`
+
+10、`ctrl + f12`可以查看当前包下有哪些类
+
+<img src="./assets/image-20240625080752905.png" alt="image-20240625080752905" style="zoom:67%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -42,7 +72,11 @@
 
 `for (int i = 0; i <= 100; i++) {}`
 
-4、使用`数组名.fori`可以快捷输入👇
+4、使用`100.forr`可以快捷输入👇
+
+`for (int i = 100; i > 0; i--) {}`
+
+5、、使用`数组名.fori`可以快捷输入👇
 
 `for (int i = 0; i < 数组名.length; i++) { System.out.println(数组名[i]); }`
 
@@ -185,13 +219,40 @@ switch() {
 对于switch有返回值的情况
 
 ```java
-String curr_str = 0;
+String curr_str = "";
 int num = sc.nextInt();
-curr_str = switch() {
+curr_str = switch(num) {
     case 1 -> return 'a';
     case 2 -> return 'b';
     case 3 -> return 'c';
     default -> return 'd';
+}
+```
+
+```java
+public static String numToRomanNum(char num) {
+    String str = "";
+    switch (num) {
+        case '0' -> str = " ";
+        case '1' -> str = "Ⅰ";
+        case '2' -> str = "Ⅱ";
+        default -> str = "烫";
+    }
+    return str;
+}
+```
+
+或者可以，注意要加`;`
+
+```java
+public static String numToRomanNum(char num) {
+    String str = switch (num) {
+        case '0' -> " ";
+        case '1' -> "Ⅰ";
+        case '2' -> "Ⅱ";
+        default -> "烫";
+    };
+    return str;
 }
 ```
 
@@ -348,30 +409,202 @@ public class demo1 {
 
 完成面向对象综合训练
 
+字符串api，还剩下字符串的两个联系以及字符串的底层原理
+
+注意`StringBuilder`和`StringJoiner`的使用
+
+​					 一个可变的操作字符串的容器`StringBuilder`优点为==拼接字符串==和==反转字符串==相对较简洁
+
+`JDK8`出现的一个可变的操作字符串的容器`StringJoiner`优点为拼接字符串的时候可以指定==间隔内容==和==开头==以及==结尾==的内容
 
 
 
+## 第十天6-25
+
+字符串api
+
+`StringBuilder`源码分析
+
+- 默认创建一个长度为16的字节数组
+- 添加的内容长度小于16，直接存
+- 添加的内容大于16会扩容（原来的容量*2+2)
+- 如果扩容之后还不够，以实际长度为准
+
+再进行测试的时候，对于扩容会有`两次`，因为我使用的是`JDK22`，在第一次扩容为`32`的时候，如果超出范围，则同样规则扩容为`70`，再之后才是`以实际长度为准`
+
+也不全是，如下：
+
+第一种情况
+
+```java
+package com.inkwhite.stringbuliderdemo;
+
+public class StringBuilderDemo4 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+
+        System.out.println(sb.capacity());
+        System.out.println(sb.length());
+
+        sb.append("abc");
+        System.out.println();
+        System.out.println(sb.capacity());
+        System.out.println(sb.length());
+
+        sb.append("defghijklmnopqrstuvwxyz");
+        System.out.println();
+        System.out.println(sb.capacity());
+        System.out.println(sb.length());
+
+        sb.append("defghijklmnopqrstuvwxyz012345678900000000000000000");
+        System.out.println();
+        System.out.println(sb.capacity());
+        System.out.println(sb.length());
+
+        sb.append("defghijkl000");
+        System.out.println();
+        System.out.println(sb.capacity());
+        System.out.println(sb.length());
+    }
+}
+
+```
 
 
 
+第二种情况，每次都创建一个新的StringBuilder的话，容量的却和源码分析一致
 
+```java
+package com.inkwhite.stringbuliderdemo;
 
+public class StringBuilderDemo4 {
+    public static void main(String[] args) {
+        StringBuilder sb1 = new StringBuilder();
 
+        System.out.println(sb1.capacity());
+        System.out.println(sb1.length());
 
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("abc");
+        System.out.println();
+        System.out.println(sb2.capacity());
+        System.out.println(sb2.length());
 
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append("abcdefghijklmnopqrstuvwxyz");
+        System.out.println();
+        System.out.println(sb3.capacity());
+        System.out.println(sb3.length());
 
+        StringBuilder sb4 = new StringBuilder();
+        sb4.append("abcdefghijklmnopqrstuvwxyz0123456789");
+        System.out.println();
+        System.out.println(sb4.capacity());
+        System.out.println(sb4.length());
 
+        StringBuilder sb5 = new StringBuilder();
+        sb5.append("abcdefghijklmnopqrstuvwxyz01234567890000");
+        System.out.println();
+        System.out.println(sb5.capacity());
+        System.out.println(sb5.length());
 
+        StringBuilder sb6 = new StringBuilder();
+        sb6.append("abcdefghijklmnopqrstuvwxyz012345678900000000000000000000000000000000");
+        System.out.println();
+        System.out.println(sb6.capacity());
+        System.out.println(sb6.length());
+    }
+}
 
+```
 
-
-
-
-
-
-
-
-
-
+> 总结：
+>
+> ​	其实对比而言，源码分析是完全正确的，都是在16的基础上，进行分叉选择，即半倍扩容还是以实际长度为准
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
