@@ -1,4 +1,4 @@
-> 从2024-6-6下午开始，学习黑马程序员的Java
+> 从2024-6-6下午开始学习Java
 
 # 快捷键及快捷命令
 
@@ -8,11 +8,11 @@
 
 2、`ctrl + alt + v`可以快速为带有返回值的方法名提供变量用于接受	
 
-![image-20240614090659958](./assets/image-20240614090659958.png)`ctrl + alt + v`![image-20240614090720127](./assets/image-20240614090720127.png)
+![image-20240614090659958](./assets/image-20240614090659958.png)`ctrl + alt + v`<img src="./assets/image-20240614090720127.png" alt="image-20240614090720127" style="zoom: 67%;" />
 
 3、`ctrl + p`在函数传参的时候，如果不知道该传入什么参数，可以使用该快捷键
 
-![image-20240614184311568](./assets/image-20240614184311568.png)`ctrl + p`![image-20240614184319919](./assets/image-20240614184319919.png)
+![image-20240614184311568](./assets/image-20240614184311568.png)`ctrl + p`<img src="./assets/image-20240614184319919.png" alt="image-20240614184319919" style="zoom:67%;" />
 
 4、`ctrl + alt + m`快捷抽取方法
 
@@ -37,6 +37,8 @@
 10、`ctrl + f12`可以查看当前包下有哪些类
 
 <img src="./assets/image-20240625080752905.png" alt="image-20240625080752905" style="zoom:67%;" />
+
+11、`ctrl + shift + u`快速将字母转换为小写字母，再次点击转换为大写字母
 
 
 
@@ -84,19 +86,65 @@
 
 ## other
 
-1、关闭idea中的ai代码提示：
+### 关闭idea中的ai代码提示
 
 `Enable Full Line suggestions`
 
-![](./assets/image-20240609162030918.png)
+<img src="./assets/image-20240609162030918.png" style="zoom:50%;" />
 
-2、关于如何快速生成JavaBean
+### 关于如何快速生成JavaBean
 
 安装插件PTG
 
-![image-20240616170300417](./assets/image-20240616170300417.png)
+<img src="./assets/image-20240616170300417.png" alt="image-20240616170300417" style="zoom:50%;" />
+
+### java修改编译JDK版本
+
+<img src="./assets/image-20240630200205258.png" alt="image-20240630200205258" style="zoom: 55%;" /><img src="./assets/image-20240630200249137.png" alt="image-20240630200249137" style="zoom: 55%;" />
+
+在进行选择的界面，上面的是当前jdk版本，下面进行选择的就是程序进行编译使用的版本
 
 
+
+
+
+
+
+
+
+
+
+# 总结
+
+## 面向对象三大特性
+
+**封装**：
+
+- 是什么：对象代表什么，就得封装对应的数据，并提供数据对应的行为
+- 优点：隐藏实现细节，提供公共的访问方式；提高代码的复用性；提高安全性
+
+**继承**：
+
+- 是什么：可以让类与类之间产生子父的关系
+- 优点：可以把多个子类中重复的代码抽取到父类中，子类可以直接使用，减少代码冗余，提高代码的复用性
+
+- 什么时候使用：当类与类之间，存在相同（共性）的内容，并满足子类是父类中的一种，就可以考虑使用继承，来优化代码
+
+**多态**：
+
+- 是什么：同类型的对象，表现出的不同形态
+- 好处：右边的对象可以实现解耦合，便于拓展与维护
+- 前提条件
+  - 有继承关系
+  - 有父类引用指向子类对象
+    - `Fu f = new Zi();`
+  - 有方法重写
+- 表现形式
+  - `父类对象 对象名称 = 子类对象;`
+- 特点
+  - 调用成员变量的特点：编译看左边，运行也看左边
+  - 调用成员方法的特点：编译看左边，运行看右边
+    - 因为子类的虚函数表已经将父类的虚函数表进行覆盖「在重写了父类方法的情况下」
 
 # 学习进度
 
@@ -345,8 +393,6 @@ public class demo1 {
 
 学习完成方法
 
-
-
 ### 方法的内存
 
 `基本数据类型`：变量中存储的是真实的数据
@@ -524,25 +570,310 @@ public class StringBuilderDemo4 {
 
  
 
+## 第十一天6.27
+
+关于while内嵌套跳不出去的情况
+
+```java
+loop: while (isContinue) {
+    showMenu();
+    System.out.println("请输入您的选择 : ");
+    int choice = sc.nextInt();
+    switch (choice) {
+        case 1 -> {
+            String result = isAdd(stus) ? "添加成功" : "添加失败";
+            System.out.println(result);
+            if (result.equals("添加成功")) {
+                printStudentInfo(stus, stus.size() - 1);
+            }
+            System.out.println("请输入任意键继续");
+            sc.next();
+        }
+        default -> break loop;
+    }
+}
+
+boolean isContinue = true;
+while (isContinue) {
+    showMenu();
+    System.out.println("请输入您的选择 : ");
+    int choice = sc.nextInt();
+    switch (choice) {
+        case 1 -> {
+            String result = isAdd(stus) ? "添加成功" : "添加失败";
+            System.out.println(result);
+            if (result.equals("添加成功")) {
+                printStudentInfo(stus, stus.size() - 1);
+            }
+            System.out.println("请输入任意键继续");
+            sc.next();
+        }
+        default -> isContinue = false;
+    }
+}
+
+// 或者直接
+System.exit(0);		// 停止虚拟机运行
+```
+
+## 第十二天6.29
+
+完成学生管理系统及其升级版
+
+static的注意事项
+
+- 静态方法中，只能访问静态
+- 非静态方法可以访问所有
+- 静态方法中没有this关键字
+
+继承的概述，this、super关键字
+
+![image-20240629152502980](./assets/image-20240629152502980.png)
+
+关于`main`
+
+没修改传入字符串参数之前<img src="./assets/image-20240629153125832.png" alt="image-20240629153125832" style="zoom: 50%;" /><img src="./assets/image-20240629153133027.png" alt="image-20240629153133027" style="zoom:50%;" />
+
+
+
+进行配置<img src="./assets/image-20240629153017177.png" alt="image-20240629153017177" style="zoom:50%;" /><img src="./assets/image-20240629153443200.png" alt="image-20240629153443200" style="zoom:50%;" /><img src="./assets/image-20240629153415396.png" alt="image-20240629153415396" style="zoom:50%;" /><img src="./assets/image-20240629153525632.png" alt="image-20240629153525632" style="zoom:50%;" />
 
 
 
 
 
+之后输出<img src="./assets/image-20240629153607217.png" alt="image-20240629153607217" style="zoom:50%;" /><img src="./assets/image-20240629153551867.png" alt="image-20240629153551867" style="zoom:50%;" />
 
 
 
+### 继承
+
+<img src="./assets/image-20240629195849066.png" alt="image-20240629195849066" style="zoom:50%;" />
+
+**分析如下**
+
+<img src="./assets/image-20240629195827386.png" alt="image-20240629195827386" style="zoom:50%;" />
 
 
 
+## 第十三天6.30
+
+多态，包和final，修饰符与代码块
+
+现存在以下问题：因多态影响，不能直接调用子类里面的特定成员方法，需要进行类型转换，但是若此前不知是什么类型，需要使用关键字`instanceof`进行判断
+
+```java
+/**
+ * @Author: InkWhite
+ * @Date: 2024/6/30 8:39
+ * @Version: v1.0.0
+ * @Description: TODO
+ **/
+public class test4 {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.eat();
+        // a.lookHome();	// 报错
+        // a.catchMouse();	// 报错
+
+        if (a instanceof Dog) {
+            Dog d = (Dog) a;
+            d.lookHome();
+        } else if (a instanceof Cat) {
+            Cat c = (Cat) a;
+            c.catchMouse();
+        } else {
+            System.out.println("该类型不存在，无法转换");
+        }
+    }
+}
+
+class Animal {
+    public void eat() {
+        System.out.println("在吃东西");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void eat() {
+        System.out.println("在吃骨头");
+    }
+
+    public void lookHome() {
+        System.out.println("Dog 特有方法");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    public void eat() {
+        System.out.println("在吃老鼠");
+    }
+
+    public void catchMouse() {
+        System.out.println("Cat 特有方法");
+    }
+}
+```
+
+那么这种实现方式在C++中是使用动态投射进行实现[dynamic_cast](https://blog.csdn.net/i792439187/article/details/69230266)
+
+关于`instanceof`与`dynamic_cast`的[弊端⚠️](https://blog.csdn.net/nanyu/article/details/131676457)
+
+在JDK14之后，Java关于`instanceof`是这样写的，如下：
+
+```java
+if (a instanceof Dog d) {
+    d.lookHome();
+} else if (a instanceof Cat c) {
+    c.catchMouse();
+} else {
+    System.out.println("该类型不存在，无法转换");
+}
+```
 
 
 
+### 对于final的应用
+
+之前写的学生管理系统
+
+```java
+switch (choice) {
+	case 1 -> {
+	    pass;
+	}
+	case 2 -> {
+	    pass;
+	}
+	case 3 -> {
+	    pass;
+	}
+	case 4 -> {
+	    pass;
+	}
+	case 5 -> {
+	    pass;
+	}
+	default -> System.out.println("其他情况");
+}
+```
+
+像`1, 2, 3, 4, 5`这样的数字不直观，可以修改为：
+
+```JAVA
+private static final int ADD_STUDENT = 1;
+private static final int DEL_STUDENT = 2;
+private static final int MODIFY_STUDENT = 3;
+private static final int QUERY_STUDENT = 4;
+private static final int EXIT = 5;
+
+		PASS;
+        switch (choice) {
+            case ADD_STUDENT -> {
+                PASS;
+            }
+            case DEL_STUDENT -> {
+                PASS;
+            }
+            case MODIFY_STUDENT -> {
+                PASS;
+            }
+            case QUERY_STUDENT -> {
+                PASS;
+            }
+            case EXIT -> {
+               	PASS;
+            }
+            default -> System.out.println("其他情况");
+        }
+```
 
 
 
+### 权限修饰符
+
+![image-20240630101542722](./assets/image-20240630101542722.png)
 
 
+
+### 抽象类
+
+关键字`abstract`
+
+### 接口
+
+接口就是一种规则，是对行为的抽象
+
+ <img src="./assets/image-20240630111250050.png" alt="image-20240630111250050" style="zoom: 50%;" />
+
+> `注意⚠️`
+>
+> 接口中所有方法的访问属性为public, 即接口中的方法自动默认为 public，所以实现接口中的方法必须标识为public 或者 abstract,否则编译出错。在JAVA 8 或者更高的版本中的可以使用default
+
+
+
+### 接口和类之间的关系
+
+- 类和类的关系
+
+  继承关系，只能单继承，不能多继承，但是可以多层继承
+
+- 类和接口的关系
+
+  实现关系，可以单实现，也可以多实现，还可以在继承一个类的同时实现多个接口
+
+- 接口和接口的关系
+
+  继承关系，可以单继承，也可以多继承
+
+### 综合练习
+
+> 我们现在有乒乓球运动员和篮球运动员，乒乓球教练和篮球教练。
+> 为了出国交流，跟乒乓球相关的人员都需要学习英语。
+>
+> 请用所有知识分析，在这个案例中，哪些是具体类，哪些是抽象类，哪些是接口？
+> 乒乓球运动员 TableTennisPlayer：姓名，年龄，学打乒乓球，说英语
+> 篮球运动员 BasketballPlayer：姓名，年龄，学打篮球
+> 乒乓球教练 TableTennisCoach：姓名，年龄，教打乒乓球，说英语
+> 篮球教练 BasketballCoach：姓名，年龄，教打篮球
+
+
+
+我的思路
+
+<img src="./assets/image-20240630174244191.png" alt="image-20240630174244191" style="zoom:33%;" />
+
+老师的给看的第一种错误思路
+
+<img src="./assets/image-20240630173011827.png" alt="image-20240630173011827" style="zoom:33%;" />
+
+老师给看的第一种正确思路
+
+<img src="./assets/image-20240630173716811.png" alt="image-20240630173716811" style="zoom:33%;" />
+
+老师给看的第一种正确思路
+
+<img src="./assets/image-20240630174427993.png" alt="image-20240630174427993" style="zoom:33%;" />
+
+### 接口的新特性
+
+ <img src="./assets/image-20240630180033307.png" alt="image-20240630180033307" style="zoom:50%;" />
+
+### 接口的应用
+
+ <img src="./assets/image-20240630180246003.png" alt="image-20240630180246003" style="zoom:50%;" />
+
+`接口 j = new 实现类对象();`，也符合编译看左边，运行看右边的特性
+
+### 适配器设计模式
+
+ <img src="./assets/image-20240630180741551.png" alt="image-20240630180741551" style="zoom:50%;" />
+
+### 内部类
+
+ <img src="./assets/image-20240630182412923.png" alt="image-20240630182412923" style="zoom:50%;" />
 
 
 

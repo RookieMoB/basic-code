@@ -51,7 +51,7 @@ void func3()
 
 void func4()
 {
-	std::array<int, 5> arr = { 1,2,3,4,5 };
+	array<int, 5> arr = { 1,2,3,4,5 };
 	for (int num : arr)
 	{
 		cout << num << endl;
@@ -78,10 +78,37 @@ void func5()
 	}
 }
 
+template <typename T>
+T Max(T a, T b)
+{
+	return a > b ? a : b;
+}
+
+void func6()
+{
+	auto a, b, c = [1, 2, 3];
+}
+
 int main()
 {
-	GFriend* gf = new GFriend(18, "仓");
+	//GFriend* gf = new GFriend(18, "仓");
 	// gf->age;		// 类外不可以进行访问
+
+	//cout << Max(1, 2) << endl;
+	//cout << Max(1.11, 2.22) << endl;
+	//cout << Max('1', '2') << endl;
+
+	//array<int, 3> a = {1, 2, 3};
+
+	//for (int i : a)
+	//{
+	//	cout << i << endl;
+	//}
+
+	int a = 10;
+	int b = 20;
+
+	auto c = a <=> b;
 
 	return 0;
 }
